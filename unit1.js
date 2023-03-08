@@ -24,3 +24,58 @@ function uniqueNumber(arr) {
   }
   return uniqueVal;
 }
+
+/*
+Write a method that returns true if two input strings are anagrams. An anagram 
+of a string is another string that uses all characters of the first string
+exactly once, but can have the characters re-arranged in any order.
+*/
+function isPairAnagram(s1, s2) {
+  // Add your code here
+  const seen = {};
+
+  for (let i = 0; i < s1.length; i++) {
+    const char = s1[i].toLowerCase();
+    if (char in seen) {
+      seen[char]++;
+      return;
+    }
+    seen[char] = 1;
+  }
+
+  for (let j = 0; j < s2.length; j++) {
+    const char = s2[j].toLowerCase();
+    if (char in seen) {
+      seen[char]--;
+      return;
+    }
+    seen[char] = -1;
+  }
+
+  let hasUnmatch;
+  for (const key in seen) {
+    if (seen[key] !== 0) {
+      hasUnmatch = true;
+    }
+  }
+  return hasUnmatch ? false : true;
+}
+// Another solution, although the chained methods may introduce an additional loop:
+// function isPairAnagram(s1, s2) {
+// let s1Arr = s1.toLowerCase().split('').sort();
+// let s2Arr = s2.toLowerCase().split('').sort();
+// if (s1Arr.length !== s2Arr.length) {
+//   return false;
+// }
+// let i = 0;
+// let j = 0;
+// let isMatch = true;
+// while(i < s1Arr.length && j < s2Arr.length) {
+//   if (s1Arr[i] !== s2Arr[j]) {
+//     isMatch = false;
+//   }
+//   i++;
+//   j++;
+// }
+// return isMatch;
+// }
